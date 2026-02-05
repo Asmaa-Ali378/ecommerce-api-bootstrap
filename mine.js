@@ -8,28 +8,26 @@
 
 
 fetch('https://fakestoreapi.com/products')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    var datafetching = document.getElementById("sec");
+    const sec = document.getElementById("sec");
+    sec.innerHTML = ""; // تنظيف
 
-    for (let i = 0; i < data.length; i++) {
-      datafetching.innerHTML += `
-        <div class="product">
-          <img src="${data[i].image}" alt="">
-          <h1>${data[i].title}</h1>
-          <p>${data[i].description}</p>
-          <span>${data[i].price} $</span>
-          <button> Buy now</button>
-
+    data.forEach(product => {
+      sec.innerHTML += `
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+          <div class="product d-flex flex-column h-100">
+            <img src="${product.image}" alt="${product.title}">
+            <h5>${product.title}</h5>
+            <p>${product.description}</p>
+            <span>${product.price} $</span>
+            <button class="mt-auto">Buy now</button>
+          </div>
         </div>
       `;
-    }
-  });
-
-
-
-
-
+    });
+  })
+  .catch(err => console.error(err));
 
 
 
